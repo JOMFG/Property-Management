@@ -2,7 +2,8 @@ import {
   Property,
   saveProperty,
   findProperty,
-  updateProperty
+  updateProperty,
+  removeProperty
 } from "./../models/property";
 import { Response, Request, NextFunction } from "express";
 import { validationResult } from "express-validator/check";
@@ -50,6 +51,16 @@ export function getProperty(req: Request, res: Response, next: NextFunction) {
         property
       });
     })
+    .catch(next);
+}
+
+export function deleteProperty(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  return removeProperty(req.params.propertyId)
+    .then(() => res.sendStatus(200))
     .catch(next);
 }
 

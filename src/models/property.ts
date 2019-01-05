@@ -64,6 +64,22 @@ export function updateProperty(property: Property) {
   });
 }
 
+export function removeProperty(id: string) {
+  return new Promise((resolve, reject) => {
+    db.query(
+      `delete from property where id = ?`,
+      id,
+      (error, _results, _fields) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      }
+    );
+  });
+}
+
 export function findProperty(id: string) {
   return new Promise((resolve, reject) => {
     db.query(

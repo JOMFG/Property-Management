@@ -19,5 +19,6 @@ app.put(
 );
 
 app.get("/property/:propertyId", propertyController.getProperty);
+app.delete("/property/:propertyId", propertyController.deleteProperty);
 
 export default app;
