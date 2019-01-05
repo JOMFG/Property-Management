@@ -1,3 +1,4 @@
+import { Property, saveProperty } from "./../models/property";
 import { Response, Request, NextFunction } from "express";
 import { validationResult } from "express-validator/check";
 
@@ -8,7 +9,15 @@ export function postProperty(req: Request, res: Response, next: NextFunction) {
     return res.status(422).json({ errors: errors.array() });
   }
 
-  return res.json({});
+  const property = req.body as Property;
+
+  return saveProperty(property)
+    .then(property => {
+      return res.json({
+        property
+      });
+    })
+    .catch(next);
 }
 
 export { validator as propertyValidator } from "../models/property";

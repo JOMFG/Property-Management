@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 
 app.post(
   "/property",
-  propertyController.propertyValidator,
+  // propertyController.propertyValidator,
   propertyController.postProperty
 );
 

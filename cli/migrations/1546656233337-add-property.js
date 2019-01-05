@@ -4,12 +4,15 @@ const db = require("../test-db");
 module.exports.up = function(next) {
   db.connect(err => {
     let createTodos = `
-    create table test(
+    create table property(
         id varchar(255) not null,
-        title varchar(255) not null,
+        price decimal(6,2) not null,
+        city varchar(255) not null,
+        address varchar(255) not null,
+        description varchar(255) not null,
         primary key (id)
     )`;
-    if(err) { 
+    if (err) {
       console.log(err);
     }
 
@@ -31,7 +34,7 @@ module.exports.up = function(next) {
 
 module.exports.down = function(next) {
   db.connect(err => {
-    db.query(`drop table test`, function(err) { 
+    db.query(`drop table property`, function(err) {
       if (err) {
         console.log(err.message);
       } else {
