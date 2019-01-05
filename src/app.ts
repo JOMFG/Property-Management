@@ -8,13 +8,16 @@ app.use(bodyParser.json());
 
 app.post(
   "/property",
-  propertyController.propertyValidator,
+  propertyController.postPropertyValidator,
   propertyController.postProperty
 );
 
-app.get(
-  "/property/:propertyId",
-  propertyController.getProperty
+app.put(
+  "/property",
+  propertyController.putPropertyValidator,
+  propertyController.putProperty
 );
+
+app.get("/property/:propertyId", propertyController.getProperty);
 
 export default app;

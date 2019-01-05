@@ -11,11 +11,18 @@ export type Property = {
 };
 
 
-export const validator = [
+export const postValidator = [
   check('price').isNumeric(),
   check('city').isString(),
   check('address').isString(),
   check('description').isString(),
+]
+
+export const putValidator = [
+  check('price').isNumeric().optional(),
+  check('city').isString().optional(),
+  check('address').isString().optional(),
+  check('description').isString().optional(),
 ]
 
 
@@ -28,6 +35,24 @@ export function saveProperty(propertyPartial: Property) {
     db.query(
       "insert into property set ?",
       property,
+      (error, _results, _fields) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(property);
+        }
+      }
+    );
+  });
+}
+
+export function updateProperty(property: Property) {
+  const { id, ...propertyUpdate } = property;
+
+  return new Promise((resolve, reject) => {
+    db.query(
+      `update property set ? where id = ?`,
+      [ propertyUpdate, id ],
       (error, _results, _fields) => {
         if (error) {
           reject(error);
