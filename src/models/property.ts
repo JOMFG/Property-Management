@@ -28,11 +28,27 @@ export function saveProperty(propertyPartial: Property) {
     db.query(
       "insert into property set ?",
       property,
-      (error, results, fields) => {
+      (error, _results, _fields) => {
         if (error) {
           reject(error);
         } else {
           resolve(property);
+        }
+      }
+    );
+  });
+}
+
+export function findProperty(id: string) {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "select * from property where ?",
+      { id } ,
+      (error, results, _fields) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(results[0]);
         }
       }
     );
