@@ -10,3 +10,5 @@ export function postProperty(req: Request, res: Response, next: NextFunction) {
 
   return res.json({});
 }
+
+export { validator as propertyValidator } from "../models/property";
