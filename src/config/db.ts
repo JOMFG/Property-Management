@@ -1,8 +1,12 @@
-import { createConnection } from 'mysql';
+import { createConnection } from "mysql";
 
-export const db = createConnection({
-  host     : 'localhost',
-  user     : 'test',
-  password : 'secret',
-  database : 'test-db'
+const db = createConnection({
+  host: "localhost",
+  user: "test",
+  password: "secret",
+  database: "test-db"
 });
+
+db.connect();
+
+export default db;

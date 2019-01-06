@@ -19,12 +19,6 @@ module.exports.up = function(next) {
       next();
     }
   });
-
-  db.end(function(err) {
-    if (err) {
-      return console.log(err.message);
-    }
-  });
 };
 
 module.exports.down = function(next) {
@@ -33,12 +27,6 @@ module.exports.down = function(next) {
       console.log(err.message);
     } else {
       next();
-    }
-  });
-
-  db.end(function(err) {
-    if (err) {
-      return console.log(err.message);
     }
   });
 };
