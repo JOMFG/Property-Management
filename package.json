@@ -9,6 +9,7 @@
     "serve": "npm run build-ts && ts-node build/server.js",
     "migrate:up": "migrate up --migrations-dir cli/migrations",
     "migrate:down": "migrate down --migrations-dir cli/migrations",
+    "migrate:create": "migrate create --migrations-dir cli/migrations --template-file cli/template.js",
     "compose:up": "docker-compose up",
     "compose:down": "docker-compose down"
   },
