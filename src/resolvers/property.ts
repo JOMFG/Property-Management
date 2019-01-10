@@ -1,11 +1,18 @@
-import { findProperty } from "../models/property";
+import { Property } from "./../types";
+import { findProperty, saveProperty } from "../models/property";
 
-const property = {
+const propertyResolver = {
   Query: {
-    getProperty: (root: any, args: any) => {
-      return findProperty(args.id);
+    getProperty: (_: any, args: any) => {
+      return findProperty(args.id as string);
+    }
+  },
+  Mutation: {
+    saveProperty: (_: any, args: any) => {
+      const { property } = args;
+      return saveProperty(property as Property);
     }
   }
 };
 
-export default property;
+export default propertyResolver;

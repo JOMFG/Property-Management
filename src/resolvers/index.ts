@@ -1,3 +1,3 @@
-import property from './property'
+import propertyResolver from './property'
 
-export default [ property ];
+export default [ propertyResolver ];

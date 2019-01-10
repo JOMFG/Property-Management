@@ -46,7 +46,7 @@ export function saveProperty(propertyPartial: Property) {
   });
 }
 
-export function updateProperty(property: Property) {
+export function updateProperty(property: Partial<Property>) {
   const { id, ...propertyUpdate } = property;
 
   return new Promise((resolve, reject) => {
