@@ -1,4 +1,4 @@
-import * as express from "express";
+import express from "express";
 import * as propertyController from "./controller/property";
 import bodyParser = require("body-parser");
 
