@@ -1,14 +1,7 @@
 import db from "../config/db";
 import { check, validationResult } from "express-validator/check";
 import uuid from "uuid/v4";
-
-export type Property = {
-  id: string;
-  price: number;
-  city: string;
-  address: string;
-  description: string;
-};
+import { Property } from "../types";
 
 export const postValidator = [
   check("price").isNumeric(),

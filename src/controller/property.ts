@@ -1,5 +1,4 @@
 import {
-  Property,
   saveProperty,
   findProperty,
   updateProperty,
@@ -7,6 +6,7 @@ import {
 } from "./../models/property";
 import { Response, Request, NextFunction } from "express";
 import { validationResult } from "express-validator/check";
+import { Property } from "../types";
 
 export function postProperty(req: Request, res: Response, next: NextFunction) {
   const errors = validationResult(req);

@@ -1,25 +1,25 @@
 import app from "./app";
-import { ApolloServer, gql } from "apollo-server-express";
+import { ApolloServer, mergeSchemas } from "apollo-server-express";
+import schemas from "./schemas";
+import resolvers from "./resolvers";
 
+const apolloServer = new ApolloServer({
+  schema: mergeSchemas({
+    schemas,
+    resolvers
+  })
+});
 
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
- 
-const resolvers = {
-  Query: {
-    hello: () => 'Hello world!',
-  },
-};
+apolloServer.applyMiddleware({
+  app,
+  path: "/graphql"
+});
 
-
-
-const apolloServer = new ApolloServer({ typeDefs, resolvers });
-const server = app.listen(8000, () => console.log('Server started in localhost:8000'))
-
-
-apolloServer.applyMiddleware({ app, path:"/graphql" });
+const server = app.listen(8000, () => {
+  console.log("Server started in localhost:8000");
+  console.log(
+    `🚀 Server ready at http://localhost:8000${apolloServer.graphqlPath}`
+  );
+});
 
 export default server;

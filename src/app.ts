@@ -3,8 +3,7 @@ import * as propertyController from "./controller/property";
 import bodyParser = require("body-parser");
 
 const app = express();
-
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 
 app.post(
   "/property",
