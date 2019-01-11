@@ -1,3 +1,4 @@
 import property from './property';
+import agent from './agent';
 
-export default [ property ];
+export default [ property, agent ];

@@ -4,8 +4,10 @@ export type Property = {
   city: string;
   address: string;
   description: string;
-}
+};
 
-export type Agent = { 
-
-}
+export type Agent = {
+  id: string;
+  email: string;
+  address: string;
+};
