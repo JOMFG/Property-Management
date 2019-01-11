@@ -1,18 +1,18 @@
-import { Property } from "../types";
-import { findProperty, saveProperty } from "../models/property";
+import { Agent } from './../types/index';
+import { findAgent, saveAgent } from "../models/agent";
 
-const propertyResolver = {
+const agentResolver = {
   Query: {
-    getProperty: (_: any, args: any) => {
-      return findProperty(args.id as string);
+    getAgent: (_: any, args: any) => {
+      return findAgent(args.id as string);
     }
   },
   Mutation: {
-    saveProperty: (_: any, args: any) => {
-      const { property } = args;
-      return saveProperty(property as Property);
+    saveAgent: (_: any, args: any) => {
+      const { agent } = args;
+      return saveAgent(agent as Agent);
     }
   }
 };
 
-export default propertyResolver;
+export default agentResolver;
