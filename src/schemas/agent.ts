@@ -4,7 +4,7 @@ import { GraphQLSchema } from "graphql";
 const agent: GraphQLSchema = makeExecutableSchema({
   typeDefs: gql`
     type Query {
-      getAgent(id: ID): Property
+      getAgent(id: ID): Agent
     }
 
     type Mutation {
