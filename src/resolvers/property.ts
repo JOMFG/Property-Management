@@ -1,5 +1,5 @@
 import { Property } from "./../types";
-import { findProperty, saveProperty } from "../models/property";
+import { findProperty, saveProperty, removeProperty, updateProperty } from "../models/property";
 
 const propertyResolver = {
   Query: {
@@ -11,6 +11,13 @@ const propertyResolver = {
     saveProperty: (_: any, args: any) => {
       const { property } = args;
       return saveProperty(property as Property);
+    },
+    deleteProperty: (_: any, args: any) => {
+      return removeProperty(args.id as string);
+    },
+    updateProperty: (_: any, args: any) => {
+      const { property } = args;
+      return updateProperty(property as Partial<Property>)
     }
   }
 };

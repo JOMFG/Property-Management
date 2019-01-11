@@ -9,8 +9,9 @@ const property: GraphQLSchema = makeExecutableSchema({
     }
 
     type Mutation {
+      deleteProperty(id: ID!): Boolean
       saveProperty(property: InputProperty): Property
-      updateProperty(property: InputPropertyPartial): Property
+      updateProperty(property: InputPropertyPartial): Boolean
     }
 
     input InputPropertyPartial { 
@@ -18,6 +19,7 @@ const property: GraphQLSchema = makeExecutableSchema({
       price: Float
       city: String
       address: String
+      agentId: String
       description: String
     }
 
@@ -25,6 +27,7 @@ const property: GraphQLSchema = makeExecutableSchema({
       price: Float!
       city: String!
       address: String!
+      agentId: String!
       description: String!
     }
 
@@ -33,6 +36,7 @@ const property: GraphQLSchema = makeExecutableSchema({
       price: Float!
       city: String!
       address: String!
+      agentId: String!
       description: String!
     }
   `

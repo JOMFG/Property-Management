@@ -34,7 +34,7 @@ export function updateProperty(property: Partial<Property>) {
         if (error) {
           reject(error);
         } else {
-          resolve(property);
+          resolve(true);
         }
       }
     );
@@ -50,7 +50,7 @@ export function removeProperty(id: string) {
         if (error) {
           reject(error);
         } else {
-          resolve();
+          resolve(true);
         }
       }
     );
