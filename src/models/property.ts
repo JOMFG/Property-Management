@@ -1,6 +1,6 @@
-import db from "../config/db";
-import { check, validationResult } from "express-validator/check";
+import { check } from "express-validator/check";
 import * as uuid from "uuid/v4";
+import db from "../config/db";
 
 export type Property = {
   id: string;
