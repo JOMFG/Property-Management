@@ -17,9 +17,6 @@ apolloServer.applyMiddleware({
 
 const server = app.listen(8000, () => {
   console.log("Server started in localhost:8000");
-  console.log(
-    `🚀 Server ready at http://localhost:8000${apolloServer.graphqlPath}`
-  );
 });
 
 export default server;

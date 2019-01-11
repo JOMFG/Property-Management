@@ -5,3 +5,7 @@ export type Property = {
   address: string;
   description: string;
 }
+
+export type Agent = { 
+
+}
