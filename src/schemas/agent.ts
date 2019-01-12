@@ -1,5 +1,6 @@
 import { gql, makeExecutableSchema, addMockFunctionsToSchema } from "apollo-server-express";
 import { GraphQLSchema } from "graphql";
+import resolvers from "../resolvers/agent";
 
 const agent: GraphQLSchema = makeExecutableSchema({
   typeDefs: gql`
@@ -28,7 +29,8 @@ const agent: GraphQLSchema = makeExecutableSchema({
       email: String!
       address: String!
     }
-  `
+  `,
+  resolvers,
 });
 
 export default agent;

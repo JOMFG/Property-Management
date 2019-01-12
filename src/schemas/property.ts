@@ -1,5 +1,6 @@
 import { gql, makeExecutableSchema } from "apollo-server-express";
 import { GraphQLSchema } from "graphql";
+import resolvers from "../resolvers/property";
 
 const property: GraphQLSchema = makeExecutableSchema({
   typeDefs: gql`
@@ -39,7 +40,8 @@ const property: GraphQLSchema = makeExecutableSchema({
       agentId: String!
       description: String!
     }
-  `
+  `,
+  resolvers,
 });
 
 export default property;
