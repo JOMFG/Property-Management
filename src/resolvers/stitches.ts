@@ -11,7 +11,7 @@ const stitches: IResolvers = {
         return info.mergeInfo.delegateToSchema({
           schema: propertySchema,
           operation: "query",
-          fieldName: "getProperties",
+          fieldName: "getPropertyByAgentId",
           args: {
             agentId: agent.id
           },
