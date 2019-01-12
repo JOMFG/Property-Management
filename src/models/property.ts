@@ -57,7 +57,7 @@ export function removeProperty(id: string) {
   });
 }
 
-export function findProperty(property: Partial<Property>) {
+export function findProperty(property: Partial<Property>): Promise<Property[]> {
   return new Promise((resolve, reject) => {
     db.query(
       "select * from property where ?",

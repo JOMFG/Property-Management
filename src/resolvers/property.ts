@@ -21,13 +21,13 @@ interface WithPartialProperty {
 
 const propertyResolver: IResolvers<Property> = {
   Query: {
-    getProperty: (context, args) => {
-      return findProperty(args);
+    getProperty: (_, args) => {
+      return findProperty(args).then(([result]) => result);
     },
 
     getPropertyByAgentId: (context, args) => {
       return findProperty(args);
-    },
+    }
   },
   Mutation: {
     saveProperty: (context, args: WithProperty) => {
@@ -43,7 +43,7 @@ const propertyResolver: IResolvers<Property> = {
       const { property } = args;
       return updateProperty(property);
     }
-  },
+  }
 };
 
 export default propertyResolver;

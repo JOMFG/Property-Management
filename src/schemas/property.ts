@@ -5,7 +5,7 @@ import resolvers from "../resolvers/property";
 const property: GraphQLSchema = makeExecutableSchema({
   typeDefs: gql`
     type Query {
-      getProperty(id: ID!): [Property]
+      getProperty(id: ID!): Property
       getPropertyByAgentId(agentId: ID!): [Property]
     }
 
