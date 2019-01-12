@@ -7,11 +7,11 @@ const stitches: IResolvers = {
   Agent: {
     properties: {
       fragment: `... on Agent { id }`,
-      resolve(agent: Agent, _args: any, context: any, info: any) {
+      resolve(agent: Agent, args: any, context: any, info: any) {
         return info.mergeInfo.delegateToSchema({
           schema: propertySchema,
           operation: "query",
-          fieldName: "getPropertyByAgentId",
+          fieldName: "getProperties",
           args: {
             agentId: agent.id
           },
@@ -25,7 +25,7 @@ const stitches: IResolvers = {
   Property: {
     agent: {
       fragment: `... on Property { agentId }`,
-      resolve(property: Property, _args: any, context: any, info: any) {
+      resolve(property: Property, args: any, context: any, info: any) {
         return info.mergeInfo.delegateToSchema({
           schema: agentSchema,
           operation: "query",

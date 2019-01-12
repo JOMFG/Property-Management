@@ -1,5 +1,5 @@
 import property from "./property";
 import agent from "./agent";
-import agentProperty from "./agentProperty";
+import linkedTypedDefs from "./linkedTypedefs";
 
-export default [ property, agent,  agentProperty];
+export default [ property, agent,  linkedTypedDefs];

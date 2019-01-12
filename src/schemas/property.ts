@@ -6,7 +6,7 @@ const property: GraphQLSchema = makeExecutableSchema({
   typeDefs: gql`
     type Query {
       getProperty(id: ID!): Property
-      getPropertyByAgentId(agentId: ID!): [Property]
+      getProperties(agentId: ID!): [Property]
     }
 
     type Mutation {

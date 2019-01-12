@@ -1,10 +1,8 @@
 import { Agent } from "./../types/index";
 import { findAgent, saveAgent } from "../models/agent";
-import { IResolvers } from "graphql-tools";
-
-const agentResolver: IResolvers = {
+const agentResolver = {
   Query: {
-    getAgent: (_: any, args: any) => {
+    getAgent(_: any, args: any) {
       return findAgent(args.id as string);
     }
   },

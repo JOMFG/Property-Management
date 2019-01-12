@@ -19,13 +19,13 @@ interface WithPartialProperty {
   property: Partial<Property>;
 }
 
-const propertyResolver: IResolvers<Property> = {
+const propertyResolver: IResolvers = {
   Query: {
-    getProperty: (_, args) => {
+    getProperty: (_, args: Partial<Property>) => {
       return findProperty(args).then(([result]) => result);
     },
 
-    getPropertyByAgentId: (context, args) => {
+    getProperties: (context, args: Partial<Property>) => {
       return findProperty(args);
     }
   },
