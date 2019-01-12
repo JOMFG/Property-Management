@@ -1,6 +1,6 @@
-import { Agent } from './../types/index';
+import { Agent } from "./../types/index";
 import { findAgent, saveAgent } from "../models/agent";
-import { IResolvers } from 'graphql-tools';
+import { IResolvers } from "graphql-tools";
 
 const agentResolver: IResolvers = {
   Query: {

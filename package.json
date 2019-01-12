@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "tslint-fix": "tslint src/**/*.ts  -t verbose --fix",
     "build-ts": "rimraf build && tsc",
     "watch-ts": "tsc -w",
     "serve": "npm run build-ts && ts-node build/server.js",
