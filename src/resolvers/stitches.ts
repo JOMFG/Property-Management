@@ -3,7 +3,7 @@ import propertySchema from "../schemas/property";
 import agentSchema from "../schemas/agent";
 import { IResolvers } from "graphql-tools";
 
-const agentProperty: IResolvers = {
+const stitches: IResolvers = {
   Agent: {
     properties: {
       fragment: `... on Agent { id }`,
@@ -41,4 +41,4 @@ const agentProperty: IResolvers = {
   }
 };
 
-export default agentProperty;
+export default stitches;

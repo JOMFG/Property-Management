@@ -1,6 +1,6 @@
 import { gql, addMockFunctionsToSchema } from "apollo-server-express";
 
-const agentProperty = gql`
+const linkedTypedDefs = gql`
   extend type Agent {
     properties: [Property]
   }
@@ -11,4 +11,4 @@ const agentProperty = gql`
 `;
 
 
-export default agentProperty;
+export default linkedTypedDefs;
