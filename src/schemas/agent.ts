@@ -1,4 +1,4 @@
-import { gql, makeExecutableSchema } from "apollo-server-express";
+import { gql, makeExecutableSchema, addMockFunctionsToSchema } from "apollo-server-express";
 import { GraphQLSchema } from "graphql";
 
 const agent: GraphQLSchema = makeExecutableSchema({

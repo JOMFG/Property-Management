@@ -4,10 +4,13 @@ export type Property = {
   city: string;
   address: string;
   description: string;
+  agentId: string;
+  agent: Agent;
 };
 
 export type Agent = {
   id: string;
   email: string;
   address: string;
+  properties?: Property[];
 };

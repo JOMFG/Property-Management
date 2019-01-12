@@ -1,25 +1,49 @@
 import { Property } from "./../types";
-import { findProperty, saveProperty, removeProperty, updateProperty } from "../models/property";
+import {
+  findProperty,
+  saveProperty,
+  removeProperty,
+  updateProperty
+} from "../models/property";
+import { IResolvers } from "graphql-tools";
 
-const propertyResolver = {
+interface WithID {
+  id: string;
+}
+
+interface WithProperty {
+  property: Property;
+}
+
+interface WithPartialProperty {
+  property: Partial<Property>;
+}
+
+const propertyResolver: IResolvers<Property> = {
   Query: {
-    getProperty: (_: any, args: any) => {
-      return findProperty(args.id as string);
-    }
+    getProperty: (context, args) => {
+      return findProperty(args);
+    },
+
+    getPropertyByAgentId: (context, args) => {
+      return findProperty(args);
+    },
   },
   Mutation: {
-    saveProperty: (_: any, args: any) => {
+    saveProperty: (context, args: WithProperty) => {
       const { property } = args;
-      return saveProperty(property as Property);
+      return saveProperty(property);
     },
-    deleteProperty: (_: any, args: any) => {
-      return removeProperty(args.id as string);
+
+    deleteProperty: (context, args: WithID) => {
+      return removeProperty(args.id);
     },
-    updateProperty: (_: any, args: any) => {
+
+    updateProperty: (context, args: WithPartialProperty) => {
       const { property } = args;
-      return updateProperty(property as Partial<Property>)
+      return updateProperty(property);
     }
-  }
+  },
 };
 
 export default propertyResolver;

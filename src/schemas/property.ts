@@ -1,11 +1,11 @@
-import { Property } from './../types/index';
 import { gql, makeExecutableSchema } from "apollo-server-express";
 import { GraphQLSchema } from "graphql";
 
 const property: GraphQLSchema = makeExecutableSchema({
   typeDefs: gql`
     type Query {
-      getProperty(id: ID!): Property
+      getProperty(id: ID!): [Property]
+      getPropertyByAgentId(agentId: ID!): [Property]
     }
 
     type Mutation {

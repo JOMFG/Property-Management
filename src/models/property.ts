@@ -57,16 +57,16 @@ export function removeProperty(id: string) {
   });
 }
 
-export function findProperty(id: string) {
+export function findProperty(property: Partial<Property>) {
   return new Promise((resolve, reject) => {
     db.query(
       "select * from property where ?",
-      { id },
+      property,
       (error, results, _fields) => {
         if (error) {
           reject(error);
         } else {
-          resolve(results[0]);
+          resolve(results);
         }
       }
     );
