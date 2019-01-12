@@ -6,7 +6,7 @@ import resolvers from "./resolvers";
 const apolloServer = new ApolloServer({
   schema: mergeSchemas({
     schemas,
-    resolvers
+    resolvers,
   })
 });
 

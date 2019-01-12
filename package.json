@@ -9,8 +9,10 @@
     "serve": "npm run build-ts && ts-node build/server.js",
     "migrate:up": "migrate up --migrations-dir cli/migrations",
     "migrate:down": "migrate down --migrations-dir cli/migrations",
+    "migrate:create": "migrate create --migrations-dir cli/migrations --template-file cli/template.js",
     "compose:up": "docker-compose up",
-    "compose:down": "docker-compose down"
+    "compose:down": "docker-compose down",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
@@ -27,11 +29,15 @@
     "@types/body-parser": "^1.17.0",
     "@types/express": "^4.16.0",
     "@types/graphql": "^14.0.4",
+    "@types/jest": "^23.3.12",
     "@types/mysql": "^2.15.5",
     "@types/uuid": "^3.4.4",
+    "jest": "^23.6.0",
     "migrate": "^1.6.2",
     "rimraf": "^2.6.3",
+    "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
+    "tslint": "^5.12.0",
     "typescript": "^3.2.2"
   }
 }

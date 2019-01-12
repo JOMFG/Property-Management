@@ -1,3 +1,3 @@
-import agentProperty from './agentProperty';
+import agentProperty from "./stitchAgentProperty";
 
-export default [agentProperty ];
+export default  [ agentProperty ] ;

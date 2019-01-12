@@ -1,4 +1,4 @@
-import { Agent } from './../types/index';
+import { Agent } from "./../types/index";
 import db from "../config/db";
 import uuid from "uuid/v4";
 

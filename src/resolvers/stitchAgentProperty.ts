@@ -1,13 +1,13 @@
 import { Agent, Property } from "../types";
 import propertySchema from "../schemas/property";
 import agentSchema from "../schemas/agent";
-import { IResolverObject } from "graphql-tools";
+import { IResolvers } from "graphql-tools";
 
-const agentProperty: IResolverObject = {
+const agentProperty: IResolvers = {
   Agent: {
     properties: {
       fragment: `... on Agent { id }`,
-      resolve(agent: Agent, args, context, info) {
+      resolve(agent: Agent, _args: any, context: any, info: any) {
         return info.mergeInfo.delegateToSchema({
           schema: propertySchema,
           operation: "query",
@@ -25,7 +25,7 @@ const agentProperty: IResolverObject = {
   Property: {
     agent: {
       fragment: `... on Property { agentId }`,
-      resolve(property: Property, args, context: any, info: any) {
+      resolve(property: Property, _args: any, context: any, info: any) {
         return info.mergeInfo.delegateToSchema({
           schema: agentSchema,
           operation: "query",
