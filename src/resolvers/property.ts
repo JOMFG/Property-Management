@@ -21,17 +21,13 @@ interface WithPartialProperty {
 
 const propertyResolver: IResolvers = {
   Query: {
-    getProperty: (_, args: Partial<Property>) => {
+    getPropertyById: (_, args: WithID) => {
       return findProperty(args).then(([result]) => result);
     },
 
-    getPropertyByPropertyType: (context, args: Partial<Property>) => {
-      return findProperty(args);
+    getProperties: (_, args: WithPartialProperty) => {
+      return findProperty(args.property);
     },
-
-    getPropertyByAgentId: (context, args: Partial<Property>) => {
-      return findProperty(args);
-    }
   },
   Mutation: {
     saveProperty: (context, args: WithProperty) => {

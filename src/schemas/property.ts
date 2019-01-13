@@ -5,9 +5,8 @@ import resolvers from "../resolvers/property";
 const property: GraphQLSchema = makeExecutableSchema({
   typeDefs: gql`
     type Query {
-      getProperty(id: ID!): Property
-      getPropertyByPropertyType(propertyType: PropertyType!): [Property]
-      getPropertyByAgentId(agentId: ID!): [Property]
+      getPropertyById(id: ID!): Property
+      getProperties(property: InputPropertySearch!): [Property]
     }
 
     type Mutation {
@@ -23,6 +22,14 @@ const property: GraphQLSchema = makeExecutableSchema({
       address: String
       agentId: String
       description: String
+      propertyType: PropertyType
+    }
+
+    input InputPropertySearch {
+      id: ID
+      city: String
+      address: String
+      agentId: String
       propertyType: PropertyType
     }
 
