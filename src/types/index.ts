@@ -1,3 +1,5 @@
+export type PropertyType = "CONDO" | "HOUSE" | "APPT";
+
 export type Property = {
   id: string;
   price: number;
@@ -6,6 +8,7 @@ export type Property = {
   description: string;
   agentId: string;
   agent: Agent;
+  propertyType: PropertyType;
 };
 
 export type Agent = {

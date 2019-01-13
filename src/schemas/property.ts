@@ -6,6 +6,7 @@ const property: GraphQLSchema = makeExecutableSchema({
   typeDefs: gql`
     type Query {
       getProperty(id: ID!): Property
+      getPropertyByPropertyType(propertyType: PropertyType!): [Property]
       getPropertyByAgentId(agentId: ID!): [Property]
     }
 
@@ -22,6 +23,7 @@ const property: GraphQLSchema = makeExecutableSchema({
       address: String
       agentId: String
       description: String
+      propertyType: PropertyType
     }
 
     input InputProperty {
@@ -30,6 +32,7 @@ const property: GraphQLSchema = makeExecutableSchema({
       address: String!
       agentId: String!
       description: String!
+      propertyType: PropertyType!
     }
 
     type Property {
@@ -39,6 +42,13 @@ const property: GraphQLSchema = makeExecutableSchema({
       address: String!
       agentId: String!
       description: String!
+      propertyType: PropertyType!
+    }
+
+    enum PropertyType {
+      CONDO
+      HOUSE
+      APPT
     }
   `,
   resolvers,

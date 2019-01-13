@@ -5,8 +5,8 @@ module.exports.up = function(next) {
   let query = `
       alter table
         property
-      add
-        column agentId varchar(255) not null;
+      add column agentId varchar(255) not null,
+      add column propertyType varchar(255) not null;
     `;
 
   db.query(query, function(err, results, fields) {
@@ -23,8 +23,8 @@ module.exports.down = function(next) {
     `
     alter table
       property
-    drop
-      column agentId;
+    drop column agentId,
+    drop column propertyType;
     `,
     function(err) {
       if (err) {

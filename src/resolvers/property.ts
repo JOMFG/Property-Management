@@ -25,6 +25,10 @@ const propertyResolver: IResolvers = {
       return findProperty(args).then(([result]) => result);
     },
 
+    getPropertyByPropertyType: (context, args: Partial<Property>) => {
+      return findProperty(args);
+    },
+
     getPropertyByAgentId: (context, args: Partial<Property>) => {
       return findProperty(args);
     }
