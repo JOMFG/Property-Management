@@ -59,9 +59,10 @@ export function removeProperty(id: string) {
 
 export function findProperty(property: Partial<Property>): Promise<Property[]> {
   return new Promise((resolve, reject) => {
+    const [query, values] = buildQuery(property);
     db.query(
-      "select * from property where ?",
-      property,
+      "select * from property where " + query,
+      values,
       (error, results, _fields) => {
         if (error) {
           reject(error);
@@ -71,4 +72,15 @@ export function findProperty(property: Partial<Property>): Promise<Property[]> {
       }
     );
   });
+}
+
+function buildQuery(partialProperty: Partial<Property>) {
+  const { description,  price, ...property} = partialProperty;
+
+  const query = Object.keys(property)
+    .map(key => `${key} = ?`)
+    .join(" and ");
+
+  const values = Object.values(property);
+  return [query, values];
 }
