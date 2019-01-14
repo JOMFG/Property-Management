@@ -1,4 +1,4 @@
-import { Property } from "./../types";
+import { Property, InputPropertySearch } from "./../types";
 import {
   findProperty,
   saveProperty,
@@ -7,39 +7,27 @@ import {
 } from "../models/property";
 import { IResolvers } from "graphql-tools";
 
-interface WithID {
-  id: string;
-}
-
-interface WithProperty {
-  property: Property;
-}
-
-interface WithPartialProperty {
-  property: Partial<Property>;
-}
-
 const propertyResolver: IResolvers = {
   Query: {
-    getPropertyById: (_, args: WithID) => {
+    property: (_, args: { id: string }) => {
       return findProperty(args).then(([result]) => result);
     },
 
-    getProperties: (_, args: WithPartialProperty) => {
+    listProperties: (_, args: { property: InputPropertySearch }) => {
       return findProperty(args.property);
-    },
+    }
   },
   Mutation: {
-    saveProperty: (context, args: WithProperty) => {
+    saveProperty: (context, args: { property: Property }) => {
       const { property } = args;
       return saveProperty(property);
     },
 
-    deleteProperty: (context, args: WithID) => {
+    deleteProperty: (context, args: { id: string }) => {
       return removeProperty(args.id);
     },
 
-    updateProperty: (context, args: WithPartialProperty) => {
+    updateProperty: (context, args: { property: Partial<Property> }) => {
       const { property } = args;
       return updateProperty(property);
     }

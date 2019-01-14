@@ -5,8 +5,8 @@ import resolvers from "../resolvers/property";
 const property: GraphQLSchema = makeExecutableSchema({
   typeDefs: gql`
     type Query {
-      getPropertyById(id: ID!): Property
-      getProperties(property: InputPropertySearch!): [Property]
+      property(id: ID!): Property
+      listProperties(property: InputPropertySearch!): [Property]
     }
 
     type Mutation {
@@ -30,6 +30,7 @@ const property: GraphQLSchema = makeExecutableSchema({
       city: String
       address: String
       agentId: String
+      price: PriceFloatFilterInput
       propertyType: PropertyType
     }
 
@@ -52,13 +53,21 @@ const property: GraphQLSchema = makeExecutableSchema({
       propertyType: PropertyType!
     }
 
+    input PriceFloatFilterInput {
+      eq: Float
+      le: Float
+      lt: Float
+      ge: Float
+      gt: Float
+    }
+
     enum PropertyType {
       CONDO
       HOUSE
       APPT
     }
   `,
-  resolvers,
+  resolvers
 });
 
 export default property;

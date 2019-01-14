@@ -2,16 +2,16 @@ import { Agent } from "./../types/index";
 import { findAgent, saveAgent } from "../models/agent";
 const agentResolver = {
   Query: {
-    getAgent(_: any, args: any) {
-      return findAgent(args.id as string);
+    agent(_: any, args: { id: string }) {
+      return findAgent(args.id);
     }
   },
   Mutation: {
-    saveAgent: (_: any, args: any) => {
+    saveAgent: (_: any, args: { agent: Agent }) => {
       const { agent } = args;
-      return saveAgent(agent as Agent);
+      return saveAgent(agent);
     }
-  },
+  }
 };
 
 export default agentResolver;

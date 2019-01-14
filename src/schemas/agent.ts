@@ -5,12 +5,12 @@ import resolvers from "../resolvers/agent";
 const agent: GraphQLSchema = makeExecutableSchema({
   typeDefs: gql`
     type Query {
-      getAgent(id: ID): Agent
+      agent(id: ID!): Agent
     }
 
     type Mutation {
-      saveAgent(agent: InputAgent): Agent
-      updateAgent(agent: InputAgentPartial): Agent
+      saveAgent(agent: InputAgent!): Agent
+      updateAgent(agent: InputAgentPartial!): Agent
     }
 
     input InputAgentPartial {
