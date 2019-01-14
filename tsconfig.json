@@ -6,14 +6,16 @@
         "preserveConstEnums": true,
         "outDir": "build",
         "sourceMap": true,
-        "lib": ["es2015"]
+        "lib": ["es2017", "esnext.asynciterable"],
+        "esModuleInterop": true,
     },
     "include": [
         "src/**/*"
     ],
     "exclude": [
         "node_modules",
-        "**/*.spec.ts"
+        "**/*.spec.ts",
+        "build"
     ]
 }
 
