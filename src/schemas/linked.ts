@@ -1,4 +1,4 @@
-import { gql, addMockFunctionsToSchema } from "apollo-server-express";
+import { gql } from "apollo-server-express";
 
 const linkedTypedDefs = gql`
   extend type Agent {
