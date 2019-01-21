@@ -9,7 +9,7 @@ const property: GraphQLSchema = makeExecutableSchema({
     gql`
       type Query {
         property(id: ID!): Property
-        listProperties(property: InputPropertySearch!): [Property]
+        properties(property: InputPropertySearch!): [Property!]!
       }
 
       type Mutation {

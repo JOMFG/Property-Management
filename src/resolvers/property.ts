@@ -13,7 +13,7 @@ const propertyResolver: IResolvers = {
       return findProperty(args).then(([result]) => result);
     },
 
-    listProperties: (_, args: { property: InputPropertySearch }) => {
+    properties: (_, args: { property: InputPropertySearch }) => {
       return findProperty(args.property);
     }
   },

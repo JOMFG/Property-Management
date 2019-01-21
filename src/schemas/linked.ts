@@ -2,11 +2,11 @@ import { gql } from "apollo-server-express";
 
 const linkedTypedDefs = gql`
   extend type Agent {
-    properties: [Property]
+    properties: [Property!]!
   }
 
   extend type Property {
-    agent: Agent
+    agent: Agent!
   }
 `;
 
