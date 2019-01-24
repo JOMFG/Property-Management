@@ -18,6 +18,15 @@ const property: GraphQLSchema = makeExecutableSchema({
         updateProperty(property: InputPropertyPartial): Boolean
       }
 
+      input InputPropertySearch {
+        id: ID
+        city: String
+        address: String
+        agentId: String
+        price: FloatFilter
+        propertyType: PropertyType
+      }
+
       input InputPropertyPartial {
         id: ID!
         price: Float
@@ -25,15 +34,6 @@ const property: GraphQLSchema = makeExecutableSchema({
         address: String
         agentId: String
         description: String
-        propertyType: PropertyType
-      }
-
-      input InputPropertySearch {
-        id: ID
-        city: String
-        address: String
-        agentId: String
-        price: FloatFilter
         propertyType: PropertyType
       }
 

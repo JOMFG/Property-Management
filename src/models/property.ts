@@ -1,3 +1,4 @@
+import { conditionBuilder } from "./../utils/db";
 import db from "../config/db";
 import uuid from "uuid/v4";
 import { Property, InputPropertySearch, PriceFloatFilterInput } from "../types";
@@ -105,22 +106,22 @@ function buildQuery(partialProperty: Partial<InputPropertySearch>) {
   const { price } = partialProperty;
 
   if (partialProperty.id) {
-    query = query.concat("id = ?");
+    query = query.concat(conditionBuilder.eq("id"));
     values = values.concat(partialProperty.id);
   }
 
   if (partialProperty.address) {
-    query = query.concat("address = ?");
+    query = query.concat(conditionBuilder.eq("address"));
     values = values.concat(partialProperty.address);
   }
 
   if (partialProperty.propertyType) {
-    query = query.concat("propertyType = ?");
+    query = query.concat(conditionBuilder.eq("propertyType"));
     values = values.concat(partialProperty.propertyType);
   }
 
   if (partialProperty.agentId) {
-    query = query.concat("agentId = ?");
+    query = query.concat(conditionBuilder.eq("agentId"));
     values = values.concat(partialProperty.agentId);
   }
 

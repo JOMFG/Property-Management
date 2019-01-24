@@ -28,9 +28,20 @@ export type PriceFloatFilterInput = {
   gt: number;
 };
 
+export enum AgentDBFields {
+  id = "id",
+  email = "email",
+  address = "address"
+}
+
 export type Agent = {
-  id: string;
-  email: string;
-  address: string;
+  [AgentDBFields.id]: string;
+  [AgentDBFields.email]: string;
+  [AgentDBFields.address]: string;
   properties?: Property[];
 };
+
+export type InputAgentSearch = Pick<
+  Agent,
+  AgentDBFields.id | AgentDBFields.email | AgentDBFields.address
+>;
