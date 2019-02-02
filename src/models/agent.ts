@@ -1,4 +1,4 @@
-import { Agent, InputAgentSearch, AgentDBFields } from "./../types/index";
+import { Agent, InputAgentSearch } from "./../types/index";
 import db from "../config/db";
 import uuid from "uuid/v4";
 

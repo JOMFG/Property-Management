@@ -30,13 +30,6 @@ export type InputPropertySearch = Partial<
 >;
 // endregion
 
-// region AGENT
-export enum AgentDBFields {
-  id = "id",
-  email = "email",
-  address = "address"
-}
-
 export type Agent = {
   id: string;
   email: string;
