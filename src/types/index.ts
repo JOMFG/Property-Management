@@ -1,5 +1,16 @@
 export type PropertyType = "CONDO" | "HOUSE" | "APPT";
 
+// region GLOBAL
+export type FloatFilterInput = {
+  eq: number;
+  le: number;
+  lt: number;
+  ge: number;
+  gt: number;
+};
+// endregion
+
+// region PROPERTY
 export type Property = {
   id: string;
   price: number;
@@ -16,18 +27,12 @@ export type InputPropertySearch = {
   city: string;
   address: string;
   agentId: string;
-  price: PriceFloatFilterInput;
+  price: FloatFilterInput;
   propertyType: PropertyType;
 };
+// endregion
 
-export type PriceFloatFilterInput = {
-  eq: number;
-  le: number;
-  lt: number;
-  ge: number;
-  gt: number;
-};
-
+// region AGENT
 export enum AgentDBFields {
   id = "id",
   email = "email",
@@ -45,3 +50,4 @@ export type InputAgentSearch = Pick<
   Agent,
   AgentDBFields.id | AgentDBFields.email | AgentDBFields.address
 >;
+// endregion

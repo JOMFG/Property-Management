@@ -5,6 +5,6 @@ import { addMockFunctionsToSchema } from "apollo-server-express";
 
 const schemas = [ property, agent,  linked];
 
-[property, agent].forEach((schema) => addMockFunctionsToSchema({ schema }));
+// [property, agent].forEach((schema) => addMockFunctionsToSchema({ schema }));
 
 export default schemas;

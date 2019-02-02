@@ -10,13 +10,14 @@ export function saveAgent(agentPartial: Agent) {
   };
 
   return new Promise((resolve, reject) => {
-    db.query("insert into agent set ?", agent, (error, _results, _fields) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(agent);
-      }
-    });
+    // db.query("insert into agent set ?", agent, (error, _results, _fields) => {
+    //   if (error) {
+    //     reject(error);
+    //   } else {
+    //     resolve(agent);
+    //   }
+    // });
+    return Promise.resolve();
   });
 }
 
@@ -24,55 +25,58 @@ export function updateAgent(agent: Partial<Agent>) {
   const { id, ...agentUpdate } = agent;
 
   return new Promise((resolve, reject) => {
-    db.query(
-      `update agent set ? where id = ?`,
-      [agentUpdate, id],
-      (error, _results, _fields) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(agent);
-        }
-      }
-    );
+    // db.query(
+    //   `update agent set ? where id = ?`,
+    //   [agentUpdate, id],
+    //   (error, _results, _fields) => {
+    //     if (error) {
+    //       reject(error);
+    //     } else {
+    //       resolve(agent);
+    //     }
+    //   }
+    // );
+    return Promise.resolve();
   });
 }
 
 export function removeAgent(id: string) {
   return new Promise((resolve, reject) => {
-    db.query(
-      `delete from agent where id = ?`,
-      id,
-      (error, _results, _fields) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve();
-        }
-      }
-    );
+    // db.query(
+    //   `delete from agent where id = ?`,
+    //   id,
+    //   (error, _results, _fields) => {
+    //     if (error) {
+    //       reject(error);
+    //     } else {
+    //       resolve();
+    //     }
+    //   }
+    // );
+    return Promise.resolve();
   });
 }
 
 export function findAgent(agent: Partial<InputAgentSearch>) {
   return new Promise((resolve, reject) => {
     const [query, values] = buildQuery(agent);
-    db.query(
-      "select * from agent where " + query,
-      values,
-      (error, results, _fields) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(results);
-        }
-      }
-    );
+    // db.query(
+    //   "select * from agent where " + query,
+    //   values,
+    //   (error, results, _fields) => {
+    //     if (error) {
+    //       reject(error);
+    //     } else {
+    //       resolve(results);
+    //     }
+    //   }
+    // );
+    return Promise.resolve();
   });
 }
 
 
-function buildQuery(agentPartial: Partial<InputAgentSearch>) { 
+function buildQuery(agentPartial: Partial<InputAgentSearch>) {
   let values: Array<string | number> = [];
   let query: Array<string> = [];
 
