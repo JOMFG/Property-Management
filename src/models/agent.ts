@@ -1,7 +1,15 @@
 import { Agent, InputAgentSearch, AgentDBFields } from "./../types/index";
 import db from "../config/db";
 import uuid from "uuid/v4";
-import { conditionBuilder } from "../utils/db";
+
+type AGENT_COL_LIST = Exclude<keyof Agent, "properties">;
+
+const TABLE = "agent";
+const AGENT_TABLE: { [P in AGENT_COL_LIST]: string } = {
+  id: "id",
+  address: "address",
+  email: "email"
+};
 
 export function saveAgent(agentPartial: Agent) {
   const agent = {
@@ -9,92 +17,42 @@ export function saveAgent(agentPartial: Agent) {
     id: uuid()
   };
 
-  return new Promise((resolve, reject) => {
-    // db.query("insert into agent set ?", agent, (error, _results, _fields) => {
-    //   if (error) {
-    //     reject(error);
-    //   } else {
-    //     resolve(agent);
-    //   }
-    // });
-    return Promise.resolve();
-  });
+  return db
+    .insert(agent)
+    .into(TABLE)
+    .thenReturn(true);
 }
 
 export function updateAgent(agent: Partial<Agent>) {
   const { id, ...agentUpdate } = agent;
 
-  return new Promise((resolve, reject) => {
-    // db.query(
-    //   `update agent set ? where id = ?`,
-    //   [agentUpdate, id],
-    //   (error, _results, _fields) => {
-    //     if (error) {
-    //       reject(error);
-    //     } else {
-    //       resolve(agent);
-    //     }
-    //   }
-    // );
-    return Promise.resolve();
-  });
+  return db
+    .update(agentUpdate)
+    .where({ id })
+    .thenReturn(true);
 }
 
 export function removeAgent(id: string) {
-  return new Promise((resolve, reject) => {
-    // db.query(
-    //   `delete from agent where id = ?`,
-    //   id,
-    //   (error, _results, _fields) => {
-    //     if (error) {
-    //       reject(error);
-    //     } else {
-    //       resolve();
-    //     }
-    //   }
-    // );
-    return Promise.resolve();
-  });
+  return db
+    .delete()
+    .where({ id })
+    .thenReturn(true);
 }
 
 export function findAgent(agent: Partial<InputAgentSearch>) {
-  return new Promise((resolve, reject) => {
-    const [query, values] = buildQuery(agent);
-    // db.query(
-    //   "select * from agent where " + query,
-    //   values,
-    //   (error, results, _fields) => {
-    //     if (error) {
-    //       reject(error);
-    //     } else {
-    //       resolve(results);
-    //     }
-    //   }
-    // );
-    return Promise.resolve();
-  });
-}
+  const queryBuilder = db.select().from(TABLE);
 
-
-function buildQuery(agentPartial: Partial<InputAgentSearch>) {
-  let values: Array<string | number> = [];
-  let query: Array<string> = [];
-
-
-  if (agentPartial.id) {
-    query = query.concat(conditionBuilder.eq(AgentDBFields.id));
-    values = values.concat(agentPartial.id);
+  if (agent.id) {
+    queryBuilder.where(AGENT_TABLE.id, agent.id);
   }
 
-  if (agentPartial.email) {
-    query = query.concat(conditionBuilder.eq(AgentDBFields.email));
-    values = values.concat(agentPartial.email);
+  if (agent.email) {
+    queryBuilder.andWhere(AGENT_TABLE.email, agent.email);
   }
 
-  if (agentPartial.address) {
-    query = query.concat(conditionBuilder.eq(AgentDBFields.address));
-    values = values.concat(agentPartial.address);
+  if (agent.address) {
+    queryBuilder.andWhere(AGENT_TABLE.address, agent.address);
   }
 
-  return [query.join(" and "), values];
+  return queryBuilder.then((result: Agent[]) => result);
 }

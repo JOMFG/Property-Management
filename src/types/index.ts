@@ -40,14 +40,11 @@ export enum AgentDBFields {
 }
 
 export type Agent = {
-  [AgentDBFields.id]: string;
-  [AgentDBFields.email]: string;
-  [AgentDBFields.address]: string;
+  id: string;
+  email: string;
+  address: string;
   properties?: Property[];
 };
 
-export type InputAgentSearch = Pick<
-  Agent,
-  AgentDBFields.id | AgentDBFields.email | AgentDBFields.address
->;
+export type InputAgentSearch = Pick<Agent, "id" | "email" | "address">;
 // endregion
