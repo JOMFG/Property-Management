@@ -47,7 +47,7 @@ export function removeProperty(id: string) {
     .thenReturn(true);
 }
 
-export function findProperty(property: Partial<InputPropertySearch>) {
+export function findProperty(property: InputPropertySearch) {
   const queryBuilder = db.select().from(TABLE);
   if (property.id) {
     queryBuilder.where(PROPERTY_COLS.id, property.id);

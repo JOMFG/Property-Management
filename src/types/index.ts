@@ -23,7 +23,9 @@ export type Property = {
   propertyType: PropertyType;
 };
 
-export type InputPropertySearch = Partial<Omit<Property, "agent">>;
+export type InputPropertySearch = Partial<Omit<Property, "agent">> & {
+  price: FloatFilterInput;
+};
 // endregion
 
 // region AGENT
