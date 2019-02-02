@@ -1,5 +1,6 @@
 export type PropertyType = "CONDO" | "HOUSE" | "APPT";
 
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 // region GLOBAL
 export type FloatFilterInput = {
   eq: number;
@@ -22,14 +23,7 @@ export type Property = {
   propertyType: PropertyType;
 };
 
-export type InputPropertySearch = {
-  id: string;
-  city: string;
-  address: string;
-  agentId: string;
-  price: FloatFilterInput;
-  propertyType: PropertyType;
-};
+export type InputPropertySearch = Partial<Omit<Property, "agent">>;
 // endregion
 
 // region AGENT
@@ -46,5 +40,5 @@ export type Agent = {
   properties?: Property[];
 };
 
-export type InputAgentSearch = Pick<Agent, "id" | "email" | "address">;
+export type InputAgentSearch = Partial<Omit<Agent, "properties">>;
 // endregion
