@@ -13,6 +13,7 @@
     "migrate:create": "migrate create --migrations-dir cli/migrations --template-file cli/template.js",
     "compose:up": "docker-compose up",
     "compose:down": "docker-compose down",
+    "knex:make-migration": "knex migrate:make",
     "test": "jest"
   },
   "author": "",
