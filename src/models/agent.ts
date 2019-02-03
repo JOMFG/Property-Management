@@ -39,7 +39,7 @@ export function removeAgent(id: string) {
     .thenReturn(true);
 }
 
-export function findAgent(agentQuery: Partial<InputAgentSearch>) {
+export function findAgent(agentQuery: InputAgentSearch) {
   const queryBuilder = db.select().from(AGENT_TABLE);
 
   if (agentQuery.id) {
