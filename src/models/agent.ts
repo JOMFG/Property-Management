@@ -54,5 +54,5 @@ export function findAgent(agentQuery: InputAgentSearch) {
     queryBuilder.andWhere(AGENT_COL_NAMES.address, agentQuery.address);
   }
 
-  return queryBuilder.then((result: Agent[]) => result);
+  return queryBuilder.then(f => f);
 }
