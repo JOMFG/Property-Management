@@ -30,13 +30,11 @@ export function saveProperty(propertyPartial: Property) {
 export function updateProperty(property: Partial<Property>) {
   const { id, ...propertyUpdate } = property;
 
-  return new Promise((resolve, reject) => {
-    return db
-      .update(propertyUpdate)
-      .from(PROPERTY_TABLE)
-      .where({ id })
-      .thenReturn(true);
-  });
+  return db
+    .update(propertyUpdate)
+    .from(PROPERTY_TABLE)
+    .where({ id })
+    .thenReturn(true);
 }
 
 export function removeProperty(id: string) {
