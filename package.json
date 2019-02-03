@@ -36,7 +36,6 @@
     "@types/mysql": "^2.15.5",
     "@types/uuid": "^3.4.4",
     "jest": "^23.6.0",
-    "migrate": "^1.6.2",
     "rimraf": "^2.6.3",
     "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
