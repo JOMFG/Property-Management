@@ -4,8 +4,8 @@ import uuid from "uuid/v4";
 
 type AGENT_COL_LIST = Exclude<keyof Agent, "properties">;
 
-const TABLE = "agent";
-const AGENT_TABLE: { [P in AGENT_COL_LIST]: string } = {
+const AGENT_TABLE = "agent";
+const AGENT_COL_NAMES: { [P in AGENT_COL_LIST]: string } = {
   id: "id",
   address: "address",
   email: "email"
@@ -19,7 +19,7 @@ export function saveAgent(agentPartial: Agent) {
 
   return db
     .insert(agent)
-    .into(TABLE)
+    .into(AGENT_TABLE)
     .thenReturn(true);
 }
 
@@ -40,18 +40,18 @@ export function removeAgent(id: string) {
 }
 
 export function findAgent(agent: Partial<InputAgentSearch>) {
-  const queryBuilder = db.select().from(TABLE);
+  const queryBuilder = db.select().from(AGENT_TABLE);
 
   if (agent.id) {
-    queryBuilder.where(AGENT_TABLE.id, agent.id);
+    queryBuilder.where(AGENT_COL_NAMES.id, agent.id);
   }
 
   if (agent.email) {
-    queryBuilder.andWhere(AGENT_TABLE.email, agent.email);
+    queryBuilder.andWhere(AGENT_COL_NAMES.email, agent.email);
   }
 
   if (agent.address) {
-    queryBuilder.andWhere(AGENT_TABLE.address, agent.address);
+    queryBuilder.andWhere(AGENT_COL_NAMES.address, agent.address);
   }
 
   return queryBuilder.then((result: Agent[]) => result);

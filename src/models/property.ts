@@ -4,8 +4,8 @@ import { Property, InputPropertySearch, FloatFilterInput } from "../types";
 
 type PROPERTY_COL_LIST = Exclude<keyof Property, "agent">;
 
-const TABLE = "property";
-const PROPERTY_COLS: { [P in PROPERTY_COL_LIST]: string } = {
+const PROPERTY_TABLE = "property";
+const PROPERTY_TABLE_COL_NAMES: { [P in PROPERTY_COL_LIST]: string } = {
   id: "id",
   address: "address",
   city: "city",
@@ -23,7 +23,7 @@ export function saveProperty(propertyPartial: Property) {
 
   return db
     .insert(property)
-    .into(TABLE)
+    .into(PROPERTY_TABLE)
     .then(() => property);
 }
 
@@ -33,7 +33,7 @@ export function updateProperty(property: Partial<Property>) {
   return new Promise((resolve, reject) => {
     return db
       .update(propertyUpdate)
-      .from(TABLE)
+      .from(PROPERTY_TABLE)
       .where({ id })
       .thenReturn(true);
   });
@@ -43,31 +43,34 @@ export function removeProperty(id: string) {
   return db
     .delete()
     .where({ id })
-    .from(TABLE)
+    .from(PROPERTY_TABLE)
     .thenReturn(true);
 }
 
 export function findProperty(property: InputPropertySearch) {
-  const queryBuilder = db.select().from(TABLE);
+  const queryBuilder = db.select().from(PROPERTY_TABLE);
   if (property.id) {
-    queryBuilder.where(PROPERTY_COLS.id, property.id);
+    queryBuilder.where(PROPERTY_TABLE_COL_NAMES.id, property.id);
   }
 
   if (property.city) {
-    queryBuilder.andWhere(PROPERTY_COLS.city, property.city);
+    queryBuilder.andWhere(PROPERTY_TABLE_COL_NAMES.city, property.city);
   }
 
   if (property.propertyType) {
-    queryBuilder.andWhere(PROPERTY_COLS.propertyType, property.propertyType);
+    queryBuilder.andWhere(
+      PROPERTY_TABLE_COL_NAMES.propertyType,
+      property.propertyType
+    );
   }
 
   if (property.agentId) {
-    queryBuilder.andWhere(PROPERTY_COLS.agentId, property.agentId);
+    queryBuilder.andWhere(PROPERTY_TABLE_COL_NAMES.agentId, property.agentId);
   }
 
   if (property.price) {
     queryBuilder.andWhere(
-      PROPERTY_COLS.price,
+      PROPERTY_TABLE_COL_NAMES.price,
       ...buildRangeQuery(property.price)
     );
   }
