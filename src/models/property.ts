@@ -63,20 +63,25 @@ export function findProperty(propertyQuery: InputPropertySearch) {
   }
 
   if (propertyQuery.agentId) {
-    queryBuilder.andWhere(PROPERTY_TABLE_COL_NAMES.agentId, propertyQuery.agentId);
+    queryBuilder.andWhere(
+      PROPERTY_TABLE_COL_NAMES.agentId,
+      propertyQuery.agentId
+    );
   }
 
   if (propertyQuery.price) {
-    queryBuilder.andWhere(
-      PROPERTY_TABLE_COL_NAMES.price,
-      ...buildRangeQuery(propertyQuery.price)
-    );
+    const query = buildRangeQuery(propertyQuery.price);
+    if (query) {
+      queryBuilder.andWhere(PROPERTY_TABLE_COL_NAMES.price, ...query);
+    }
   }
 
   return queryBuilder.then((result: Property[]) => result);
 }
 
-function buildRangeQuery(rangeObject: FloatFilterInput): [string, number] {
+function buildRangeQuery(
+  rangeObject: FloatFilterInput
+): [string, number] | null {
   if (rangeObject.eq) {
     return [" = ", rangeObject.eq];
   }
@@ -96,4 +101,6 @@ function buildRangeQuery(rangeObject: FloatFilterInput): [string, number] {
   if (rangeObject.ge) {
     return [" >= ", rangeObject.ge];
   }
+
+  return null;
 }
