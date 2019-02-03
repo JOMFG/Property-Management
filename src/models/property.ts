@@ -45,31 +45,31 @@ export function removeProperty(id: string) {
     .thenReturn(true);
 }
 
-export function findProperty(property: InputPropertySearch) {
+export function findProperty(propertyQuery: InputPropertySearch) {
   const queryBuilder = db.select().from(PROPERTY_TABLE);
-  if (property.id) {
-    queryBuilder.where(PROPERTY_TABLE_COL_NAMES.id, property.id);
+  if (propertyQuery.id) {
+    queryBuilder.where(PROPERTY_TABLE_COL_NAMES.id, propertyQuery.id);
   }
 
-  if (property.city) {
-    queryBuilder.andWhere(PROPERTY_TABLE_COL_NAMES.city, property.city);
+  if (propertyQuery.city) {
+    queryBuilder.andWhere(PROPERTY_TABLE_COL_NAMES.city, propertyQuery.city);
   }
 
-  if (property.propertyType) {
+  if (propertyQuery.propertyType) {
     queryBuilder.andWhere(
       PROPERTY_TABLE_COL_NAMES.propertyType,
-      property.propertyType
+      propertyQuery.propertyType
     );
   }
 
-  if (property.agentId) {
-    queryBuilder.andWhere(PROPERTY_TABLE_COL_NAMES.agentId, property.agentId);
+  if (propertyQuery.agentId) {
+    queryBuilder.andWhere(PROPERTY_TABLE_COL_NAMES.agentId, propertyQuery.agentId);
   }
 
-  if (property.price) {
+  if (propertyQuery.price) {
     queryBuilder.andWhere(
       PROPERTY_TABLE_COL_NAMES.price,
-      ...buildRangeQuery(property.price)
+      ...buildRangeQuery(propertyQuery.price)
     );
   }
 

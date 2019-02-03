@@ -39,19 +39,19 @@ export function removeAgent(id: string) {
     .thenReturn(true);
 }
 
-export function findAgent(agent: Partial<InputAgentSearch>) {
+export function findAgent(agentQuery: Partial<InputAgentSearch>) {
   const queryBuilder = db.select().from(AGENT_TABLE);
 
-  if (agent.id) {
-    queryBuilder.where(AGENT_COL_NAMES.id, agent.id);
+  if (agentQuery.id) {
+    queryBuilder.where(AGENT_COL_NAMES.id, agentQuery.id);
   }
 
-  if (agent.email) {
-    queryBuilder.andWhere(AGENT_COL_NAMES.email, agent.email);
+  if (agentQuery.email) {
+    queryBuilder.andWhere(AGENT_COL_NAMES.email, agentQuery.email);
   }
 
-  if (agent.address) {
-    queryBuilder.andWhere(AGENT_COL_NAMES.address, agent.address);
+  if (agentQuery.address) {
+    queryBuilder.andWhere(AGENT_COL_NAMES.address, agentQuery.address);
   }
 
   return queryBuilder.then((result: Agent[]) => result);
