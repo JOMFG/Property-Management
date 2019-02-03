@@ -3,13 +3,14 @@
  * @param knex {import("knex")}
  */
 exports.up = function(knex) {
-  return knex.schema.createTable("properties", table => {
+  return knex.schema.createTable("property", table => {
     table.string("id").primary();
-    table.string("city");
-    table.string("description");
-    table.string("address");
+    table.string("city").notNullable();
+    table.string("description").notNullable();
+    table.string("address").notNullable();
+    table.string("propertyType").notNullable();
     table.string("agentId");
-    table.decimal("price", 6, 2);
+    table.decimal("price", 6, 2).notNullable();
   });
 };
 
@@ -18,5 +19,5 @@ exports.up = function(knex) {
  * @param knex {import("knex")}
  */
 exports.down = function(knex) {
-  return knex.schema.dropTable("properties");
+  return knex.schema.dropTable("property");
 };
