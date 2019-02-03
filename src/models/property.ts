@@ -76,7 +76,7 @@ export function findProperty(propertyQuery: InputPropertySearch) {
     }
   }
 
-  return queryBuilder.then((result: Property[]) => result);
+  return queryBuilder.then(f => f);
 }
 
 function buildRangeQuery(

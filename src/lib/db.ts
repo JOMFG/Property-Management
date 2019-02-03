@@ -1,5 +1,7 @@
 import knex from "knex";
-import { snakeCase, camelCase } from "lodash";
+import { snakeCase, camelCase, mapKeys } from "lodash";
+
+const camelCaseKey = (_: string, key: string) => camelCase(key);
 
 const db = knex({
   client: "mysql",
@@ -13,9 +15,9 @@ const db = knex({
   wrapIdentifier: (value, origImpl, queryContext) => origImpl(snakeCase(value)),
   postProcessResponse: (result, queryContext) => {
     if (Array.isArray(result)) {
-      return result.map(camelCase);
+      return result.map(data => mapKeys(data, camelCaseKey));
     } else {
-      return camelCase(result);
+      return mapKeys(result, camelCaseKey);
     }
   }
 });
