@@ -1,4 +1,4 @@
-import db from "../config/db";
+import db from "../lib/db";
 import uuid from "uuid/v4";
 import { Property, InputPropertySearch, FloatFilterInput } from "../types";
 

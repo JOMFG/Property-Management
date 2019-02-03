@@ -1,5 +1,5 @@
 import { Agent, InputAgentSearch } from "./../types/index";
-import db from "../config/db";
+import db from "../lib/db";
 import uuid from "uuid/v4";
 
 type AGENT_COL_LIST = Exclude<keyof Agent, "properties">;
