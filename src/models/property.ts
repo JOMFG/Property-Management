@@ -1,6 +1,19 @@
-import db from "../config/db";
+import db from "../lib/db";
 import uuid from "uuid/v4";
-import { Property, InputPropertySearch, PriceFloatFilterInput } from "../types";
+import { Property, InputPropertySearch, FloatFilterInput } from "../types";
+
+type PROPERTY_COL_LIST = Exclude<keyof Property, "agent">;
+
+const PROPERTY_TABLE = "property";
+const PROPERTY_TABLE_COL_NAMES: { [P in PROPERTY_COL_LIST]: string } = {
+  id: "id",
+  address: "address",
+  city: "city",
+  price: "price",
+  description: "description",
+  propertyType: "propertyType",
+  agentId: "agentId"
+};
 
 export function saveProperty(propertyPartial: Property) {
   const property = {
@@ -8,75 +21,67 @@ export function saveProperty(propertyPartial: Property) {
     id: uuid()
   };
 
-  return new Promise((resolve, reject) => {
-    db.query(
-      "insert into property set ?",
-      property,
-      (error, _results, _fields) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(property);
-        }
-      }
-    );
-  });
+  return db
+    .insert(property)
+    .into(PROPERTY_TABLE)
+    .then(() => property);
 }
 
 export function updateProperty(property: Partial<Property>) {
   const { id, ...propertyUpdate } = property;
 
-  return new Promise((resolve, reject) => {
-    db.query(
-      `update property set ? where id = ?`,
-      [propertyUpdate, id],
-      (error, _results, _fields) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(true);
-        }
-      }
-    );
-  });
+  return db
+    .update(propertyUpdate)
+    .from(PROPERTY_TABLE)
+    .where({ id })
+    .thenReturn(true);
 }
 
 export function removeProperty(id: string) {
-  return new Promise((resolve, reject) => {
-    db.query(
-      `delete from property where id = ?`,
-      id,
-      (error, _results, _fields) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(true);
-        }
-      }
-    );
-  });
+  return db
+    .delete()
+    .where({ id })
+    .from(PROPERTY_TABLE)
+    .thenReturn(true);
 }
 
-export function findProperty(
-  property: Partial<InputPropertySearch>
-): Promise<Property[]> {
-  return new Promise((resolve, reject) => {
-    const [query, values] = buildQuery(property);
-    db.query(
-      "select * from property where " + query,
-      values,
-      (error, results, _fields) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(results);
-        }
-      }
+export function findProperty(propertyQuery: InputPropertySearch) {
+  const queryBuilder = db.select().from(PROPERTY_TABLE);
+  if (propertyQuery.id) {
+    queryBuilder.where(PROPERTY_TABLE_COL_NAMES.id, propertyQuery.id);
+  }
+
+  if (propertyQuery.city) {
+    queryBuilder.andWhere(PROPERTY_TABLE_COL_NAMES.city, propertyQuery.city);
+  }
+
+  if (propertyQuery.propertyType) {
+    queryBuilder.andWhere(
+      PROPERTY_TABLE_COL_NAMES.propertyType,
+      propertyQuery.propertyType
     );
-  });
+  }
+
+  if (propertyQuery.agentId) {
+    queryBuilder.andWhere(
+      PROPERTY_TABLE_COL_NAMES.agentId,
+      propertyQuery.agentId
+    );
+  }
+
+  if (propertyQuery.price) {
+    const query = buildRangeQuery(propertyQuery.price);
+    if (query) {
+      queryBuilder.andWhere(PROPERTY_TABLE_COL_NAMES.price, ...query);
+    }
+  }
+
+  return queryBuilder.then(f => f);
 }
 
-function buildRangeQuery(rangeObject: PriceFloatFilterInput): [string, number] {
+function buildRangeQuery(
+  rangeObject: FloatFilterInput
+): [string, number] | null {
   if (rangeObject.eq) {
     return [" = ", rangeObject.eq];
   }
@@ -96,39 +101,6 @@ function buildRangeQuery(rangeObject: PriceFloatFilterInput): [string, number] {
   if (rangeObject.ge) {
     return [" >= ", rangeObject.ge];
   }
-}
 
-function buildQuery(partialProperty: Partial<InputPropertySearch>) {
-  let values: Array<string | number> = [];
-  let query: Array<string> = [];
-
-  const { price } = partialProperty;
-
-  if (partialProperty.id) {
-    query = query.concat("id = ?");
-    values = values.concat(partialProperty.id);
-  }
-
-  if (partialProperty.address) {
-    query = query.concat("address = ?");
-    values = values.concat(partialProperty.address);
-  }
-
-  if (partialProperty.propertyType) {
-    query = query.concat("propertyType = ?");
-    values = values.concat(partialProperty.propertyType);
-  }
-
-  if (partialProperty.agentId) {
-    query = query.concat("agentId = ?");
-    values = values.concat(partialProperty.agentId);
-  }
-
-  if (price) {
-    const [priceQuery, priceValue] = buildRangeQuery(price);
-    query = query.concat(`price ${priceQuery} ?`);
-    values = values.concat(priceValue);
-  }
-
-  return [query.join(" and "), values];
+  return null;
 }

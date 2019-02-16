@@ -1,4 +1,4 @@
-import { gql, makeExecutableSchema, addMockFunctionsToSchema } from "apollo-server-express";
+import { gql, makeExecutableSchema } from "apollo-server-express";
 import { GraphQLSchema } from "graphql";
 import resolvers from "../resolvers/agent";
 
@@ -6,11 +6,18 @@ const agent: GraphQLSchema = makeExecutableSchema({
   typeDefs: gql`
     type Query {
       agent(id: ID!): Agent
+      agents(agent: InputAgentSearch!): [Agent!]!
     }
 
     type Mutation {
       saveAgent(agent: InputAgent!): Agent
       updateAgent(agent: InputAgentPartial!): Agent
+    }
+
+    input InputAgentSearch {
+      id: ID
+      email: String
+      address: String
     }
 
     input InputAgentPartial {
@@ -30,7 +37,7 @@ const agent: GraphQLSchema = makeExecutableSchema({
       address: String!
     }
   `,
-  resolvers,
+  resolvers
 });
 
 export default agent;

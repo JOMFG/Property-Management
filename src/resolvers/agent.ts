@@ -1,9 +1,12 @@
-import { Agent } from "./../types/index";
+import { Agent, InputAgentSearch } from "./../types/index";
 import { findAgent, saveAgent } from "../models/agent";
 const agentResolver = {
   Query: {
     agent(_: any, args: { id: string }) {
-      return findAgent(args.id);
+      return findAgent(args).then(([result]) => result);
+    },
+    agents(_: any, args: { agent: InputAgentSearch }) {
+      return findAgent(args.agent);
     }
   },
   Mutation: {

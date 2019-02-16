@@ -1,6 +1,15 @@
-import { Agent } from "./../types/index";
-import db from "../config/db";
+import { Agent, InputAgentSearch } from "./../types/index";
+import db from "../lib/db";
 import uuid from "uuid/v4";
+
+type AGENT_COL_LIST = Exclude<keyof Agent, "properties">;
+
+const AGENT_TABLE = "agent";
+const AGENT_COL_NAMES: { [P in AGENT_COL_LIST]: string } = {
+  id: "id",
+  address: "address",
+  email: "email"
+};
 
 export function saveAgent(agentPartial: Agent) {
   const agent = {
@@ -8,67 +17,42 @@ export function saveAgent(agentPartial: Agent) {
     id: uuid()
   };
 
-  return new Promise((resolve, reject) => {
-    db.query(
-      "insert into agent set ?",
-      agent,
-      (error, _results, _fields) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(agent);
-        }
-      }
-    );
-  });
+  return db
+    .insert(agent)
+    .into(AGENT_TABLE)
+    .thenReturn(true);
 }
 
 export function updateAgent(agent: Partial<Agent>) {
   const { id, ...agentUpdate } = agent;
 
-  return new Promise((resolve, reject) => {
-    db.query(
-      `update agent set ? where id = ?`,
-      [agentUpdate, id],
-      (error, _results, _fields) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(agent);
-        }
-      }
-    );
-  });
+  return db
+    .update(agentUpdate)
+    .where({ id })
+    .thenReturn(true);
 }
 
 export function removeAgent(id: string) {
-  return new Promise((resolve, reject) => {
-    db.query(
-      `delete from agent where id = ?`,
-      id,
-      (error, _results, _fields) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve();
-        }
-      }
-    );
-  });
+  return db
+    .delete()
+    .where({ id })
+    .thenReturn(true);
 }
 
-export function findAgent(id: string) {
-  return new Promise((resolve, reject) => {
-    db.query(
-      "select * from agent where ?",
-      { id },
-      (error, results, _fields) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(results[0]);
-        }
-      }
-    );
-  });
+export function findAgent(agentQuery: InputAgentSearch) {
+  const queryBuilder = db.select().from(AGENT_TABLE);
+
+  if (agentQuery.id) {
+    queryBuilder.where(AGENT_COL_NAMES.id, agentQuery.id);
+  }
+
+  if (agentQuery.email) {
+    queryBuilder.andWhere(AGENT_COL_NAMES.email, agentQuery.email);
+  }
+
+  if (agentQuery.address) {
+    queryBuilder.andWhere(AGENT_COL_NAMES.address, agentQuery.address);
+  }
+
+  return queryBuilder.then(f => f);
 }
